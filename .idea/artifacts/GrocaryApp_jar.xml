@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GrocaryApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GrocaryApp_jar</output-path>
+    <root id="archive" name="GrocaryApp.jar">
+      <element id="module-output" name="GrocaryApp" />
+    </root>
+  </artifact>
+</component>

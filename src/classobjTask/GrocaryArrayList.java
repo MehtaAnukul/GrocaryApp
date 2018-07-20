@@ -1,6 +1,5 @@
 package classobjTask;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,11 +7,16 @@ import java.util.Scanner;
  * Created by Anukul-PC on 06-07-2018.
  */
 public class GrocaryArrayList {
+    private long subTotal = 0;
+    private long orderTotal = 0;
+    private int productQuntity = 0;
     private Scanner getInput;
     private ArrayList<AdminLoginModel> adminLoginModelArrayList;
     private ArrayList<CategoryModel> categoryModelArrayList;
     private ArrayList<ProductModel> productModelArrayList;
+    private ArrayList<OrderModel> orderModelArrayList;
     private AdminLoginModel adminLoginModel;
+    private ArrayList<ProductModel> orderProductModelArrayList;
 
 
     GrocaryArrayList() {
@@ -21,7 +25,8 @@ public class GrocaryArrayList {
         categoryModelArrayList = new ArrayList<>();
         productModelArrayList = new ArrayList<>();
         adminLoginModel = new AdminLoginModel();
-
+        orderModelArrayList = new ArrayList<>();
+        orderProductModelArrayList = new ArrayList<>();
         choice();
     }
 
@@ -49,35 +54,132 @@ public class GrocaryArrayList {
 
     }
 
+
     private void User() {
+
         int choice;
         System.out.println("");
-        System.out.println("1.Apply or Make a order");
-        System.out.println("2.See your Order");
-        System.out.println("3.Remove your all order");
-        System.out.println("4.Exit");
+        System.out.println("1.See the menu");
+        System.out.println("2.Apply or Make a order");
+        System.out.println("3.See your Order with bill");
+        System.out.println("4.Remove your all order");
+        System.out.println("5.Exit");
         choice = getInput.nextInt();
+
         switch (choice) {
             case 1:
-                //makeOrder();
-                choice();
+                menu();
+//                choice();
                 break;
             case 2:
-                //seeOrder();
-                choice();
+                System.out.println("Enter your name:");
+                final String userName = getInput.next();
+                makeOrder(userName);
+//                choice();
                 break;
 
             case 3:
-                removeOrder();
+                // seeOrderBill();
                 choice();
                 break;
             case 4:
+                removeOrder();
+            case 5:
                 System.exit(0);
             default:
                 System.out.println("Wrong choice");
                 choice();
                 break;
         }
+    }
+
+    private void makeOrder(String userName) {
+
+        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+            System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
+        }
+        int categoryChoice;
+        int productChoice;
+        subTotal = 0;
+
+        System.out.println("Enter your chategory");
+        categoryChoice = getInput.nextInt();
+
+        System.out.println(categoryModelArrayList.get(categoryChoice).getCategoryName());
+
+        for (int i = 0; i < productModelArrayList.size(); i++) {
+            if (categoryChoice == productModelArrayList.get(i).getCategoryId()) {
+                System.out.println("Product" + ":" + productModelArrayList.indexOf(productModelArrayList.get(i)) + "." + productModelArrayList.get(i).getProductName() + " | "
+                        + productModelArrayList.get(i).getProductPrice() + " | "
+                        + productModelArrayList.get(i).getDiscription());
+            }
+        }
+
+        System.out.println("choose your product for make order");
+        productChoice = getInput.nextInt();
+
+        System.out.println("How mach quntity of your product");
+        productQuntity = getInput.nextInt();
+
+        orderProductModelArrayList.add(productModelArrayList.get(productChoice));
+
+        subTotal = productQuntity * productModelArrayList.get(productChoice).getProductPrice();
+        orderTotal = orderTotal + subTotal;
+
+
+        chooseMoreProduct(userName, productQuntity, orderTotal, orderProductModelArrayList);
+
+    }
+
+
+    private void chooseMoreProduct(String userName, int productQuntity, float orderTotal, ArrayList<ProductModel> orderProductModelArrayList) {
+        String choice;
+        System.out.println("Press Y for choose more and N for No");
+        choice = getInput.next();
+        if (choice.equals("Y")) {
+            makeOrder(userName);
+        } else {
+            orderModelArrayList.add(new OrderModel(userName, productQuntity, orderTotal, orderProductModelArrayList));
+            for (int i = 0; i < orderModelArrayList.size(); i++) {
+                System.out.println("--Username--" + orderModelArrayList.get(i).getUserName()
+                        + "-- Total -- " + orderModelArrayList.get(i).getTotal()
+                        + "--Qunt -- " + orderModelArrayList.get(i).getProductQuantity());
+
+                for (int j = 0; j < orderModelArrayList.get(i).getProductModelArrayList().size(); j++) {
+                    System.out.println(orderModelArrayList.get(i).getProductModelArrayList().get(j).getProductName() + "--"
+                            + orderModelArrayList.get(i).getProductModelArrayList().get(j).getProductPrice());
+                }
+            }
+        }
+        changesInCategoryAndProduct();
+
+        //addtocart();
+    }
+
+
+   /* private void addtocart(String userName) {
+        System.out.println("");
+        System.out.println("your order is");
+
+        orderModelArrayList.add(new OrderModel())
+
+
+    }*/
+
+    private void menu() {
+        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+            System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
+
+            for (int j = 0; j < productModelArrayList.size(); j++) {
+                if (productModelArrayList.get(j).getCategoryId() == categoryModelArrayList.indexOf(categoryModelArrayList.get(i))) {
+                    System.out.println("--------Product" + productModelArrayList.get(j).getProductName() + " | "
+                            + productModelArrayList.get(j).getProductPrice() + " | "
+                            + productModelArrayList.get(j).getDiscription());
+                }
+            }
+        }
+
+
     }
 
     private void removeOrder() {
@@ -89,11 +191,11 @@ public class GrocaryArrayList {
         choice = getInput.nextInt();
         switch (choice) {
             case 1:
-                //removeAllOrder();
+                removeAllOrder();
                 choice();
                 break;
             case 2:
-                // removePerticularOrder();
+                removePerticularOrder();
                 choice();
                 break;
             case 3:
@@ -102,6 +204,42 @@ public class GrocaryArrayList {
                 System.out.println("Wrong choice");
                 choice();
                 break;
+        }
+    }
+
+    private void removePerticularOrder() {
+        int index;
+        System.out.println("");
+
+        for (int i = 0; i < orderModelArrayList.size(); i++) {
+            System.out.println(i + "." + orderModelArrayList.get(i).getUserName());
+            System.out.println(orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductName() + " | "
+                    + orderModelArrayList.get(0).getProductQuantity() + " | "
+                    + orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductPrice() + " | "
+                    + orderModelArrayList.get(0).getTotal() + "  --"
+                    + orderModelArrayList.get(0).getProductModelArrayList().size());
+
+        }
+        System.out.println("");
+        System.out.println("Enter your index for delete particular Order");
+        index = getInput.nextInt();
+
+        orderModelArrayList.remove(index);
+
+
+    }
+
+    private void removeAllOrder() {
+        String choice;
+        System.out.println("");
+        System.out.println("Are you sure you want to deleteAll Order ");
+        System.out.println("Press Y for deleteALL or N for no");
+        choice = getInput.next();
+
+        if (choice.equals("Y")) {
+            orderModelArrayList.clear();
+        } else {
+            changesInCategoryAndProduct();
         }
     }
 
@@ -123,7 +261,8 @@ public class GrocaryArrayList {
                 choice();
                 break;
             case 3:
-                System.exit(0);
+                choice();
+
             default:
                 System.out.println("Wrong choice");
                 choice();
@@ -200,9 +339,9 @@ public class GrocaryArrayList {
         int index;
 
         for (int i = 0; i < productModelArrayList.size(); i++) {
-            System.out.println(i+"."+productModelArrayList.get(i).getProductName() + " | "
-            +productModelArrayList.get(i).getProductPrice() +" | "
-            +productModelArrayList.get(i).getDiscription());
+            System.out.println(i + "." + productModelArrayList.get(i).getProductName() + " | "
+                    + productModelArrayList.get(i).getProductPrice() + " | "
+                    + productModelArrayList.get(i).getDiscription());
         }
         System.out.println("");
         System.out.println("choose your index If you want to delete");
@@ -211,6 +350,7 @@ public class GrocaryArrayList {
         productModelArrayList.remove(index);
 
     }
+
     private void removeAllProduct() {
         String choice;
         System.out.println("Are you sure you want delete all product");
@@ -281,7 +421,7 @@ public class GrocaryArrayList {
     private void seeAllProduct() {
         for (int i = 0; i < categoryModelArrayList.size(); i++) {
 
-            System.out.println(i+"."+categoryModelArrayList.get(i).getCategoryName());
+            System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
 
             for (int j = 0; j < productModelArrayList.size(); j++) {
                 if (productModelArrayList.get(j).getCategoryId() == categoryModelArrayList.indexOf(categoryModelArrayList.get(i))) {
@@ -439,6 +579,7 @@ public class GrocaryArrayList {
         String choice;
         String categoryName;
         System.out.println("Enter the category");
+
         categoryName = getInput.next();
         categoryModelArrayList.set(i, new CategoryModel(categoryName));
 
@@ -446,12 +587,12 @@ public class GrocaryArrayList {
     }
 
     private void seeAllGrocaryCategory() {
-        for(int i=0;i<categoryModelArrayList.size();i++) {
+        for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
         }
 
 
-        }
+    }
 
 
 //      for(int i=0;i<productModelArrayList.size();i++){
@@ -460,8 +601,6 @@ public class GrocaryArrayList {
 //          +productModelArrayList.get(i).getProductPrice() + "|"
 //          +productModelArrayList.get(i).getDiscription());
 //      }
-
-
 
 
     private void addGrocaryCategory() {
