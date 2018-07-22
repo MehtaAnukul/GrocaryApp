@@ -1,4 +1,4 @@
-package classobjTask;
+package classobj;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -96,9 +96,12 @@ public class GrocaryArrayList {
     }
 
     private void makeOrder(String userName) {
-
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+       /* for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
+        }*/
+
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) + "." + categoryModel.getCategoryName());
         }
         int categoryChoice;
         int productChoice;
@@ -108,11 +111,18 @@ public class GrocaryArrayList {
 
         System.out.println(categoryModelArrayList.get(categoryChoice).getCategoryName());
 
-        for (int i = 0; i < productModelArrayList.size(); i++) {
+       /* for (int i = 0; i < productModelArrayList.size(); i++) {
             if (categoryChoice == productModelArrayList.get(i).getCategoryId()) {
                 System.out.println("Product" + ":" + productModelArrayList.indexOf(productModelArrayList.get(i)) + "." + productModelArrayList.get(i).getProductName() + " | "
                         + productModelArrayList.get(i).getProductPrice() + " | "
                         + productModelArrayList.get(i).getDiscription());
+            }
+        }*/
+        for (ProductModel productModel : productModelArrayList) {
+            if (categoryChoice == categoryModelArrayList.indexOf(productModel.getCategoryId())) {
+                System.out.println("Product" + ":" + productModelArrayList.indexOf(productModel) + "." + productModelArrayList.indexOf(productModel.getProductName()) + " | "
+                        + productModelArrayList.indexOf(productModel.getProductPrice()) + " | "
+                        + productModelArrayList.indexOf(productModel.getDiscription()));
             }
         }
 
@@ -145,7 +155,7 @@ public class GrocaryArrayList {
             orderModelArrayList.add(new OrderModel(userName, orderTotal, userOrderModelArrayList));
 //            orderModelArrayList.add(new OrderModel(userName, orderTotal, orderProductModelArrayList));
 //            userOrderModelArrayList.add(new UserOrderModel(productQuntity));
-            for (int i = 0; i < orderModelArrayList.size(); i++) {
+           /* for (int i = 0; i < orderModelArrayList.size(); i++) {
                 System.out.println("Username: " + orderModelArrayList.get(i).getUserName()
                         + "-- Total -- " + orderModelArrayList.get(i).getTotal());
 
@@ -156,7 +166,21 @@ public class GrocaryArrayList {
                             + "Price: " + orderModelArrayList.get(i).getUserOrderModel().get(j).getProductModel().getProductPrice() + " | "
                             + "Quntity: " + orderModelArrayList.get(i).getUserOrderModel().get(j).getProductQuantity());
                 }
+            }*/
+            for (OrderModel orderModel : orderModelArrayList) {
+                System.out.println("Username: " + orderModel.getUserName()
+                        + "--Total-- " + orderModel.getTotal());
+
+                System.out.println("Your OrderProduct is:");
+
+                for(UserOrderModel userOrderModel: orderModel.getUserOrderModel()){
+                    System.out.println("");
+                    System.out.println(userOrderModel.getProductModel().getProductName() + " | "
+                    + "Price: " + orderModel.getTotal() + " | "
+                    + "Quntity: " + userOrderModel.getProductQuantity());
+                }
             }
+
         }
         changesInCategoryAndProduct();
     }
@@ -208,11 +232,11 @@ public class GrocaryArrayList {
 
         for (int i = 0; i < orderModelArrayList.size(); i++) {
             System.out.println(i + "." + orderModelArrayList.get(i).getUserName());
-            System.out.println(orderModelArrayList.get(i).getUserOrderModel().get(i).getProductModel().getProductName() + " | "
-                    + userOrderModelArrayList.get(i).getProductQuantity() + " | "
-                    + orderModelArrayList.get(i).getUserOrderModel().get(i).getProductModel().getProductPrice() + " | "
-                    + orderModelArrayList.get(i).getTotal() + "  --"
-                    + orderModelArrayList.get(i).getUserOrderModel().size());
+//            System.out.println(orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductName() + " | "
+//                    + userOrderModelArrayList.get(0).getProductQuantity() + " | "
+//                    + orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductPrice() + " | "
+//                    + orderModelArrayList.get(0).getTotal() + "  --"
+//                    + orderModelArrayList.get(0).getProductModelArrayList().size());
         }
         System.out.println("");
         System.out.println("Enter your index for delete particular Order");
