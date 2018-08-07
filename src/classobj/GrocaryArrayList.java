@@ -119,7 +119,7 @@ public class GrocaryArrayList {
             }
         }*/
         for (ProductModel productModel : productModelArrayList) {
-            if (categoryChoice == categoryModelArrayList.indexOf(productModel.getCategoryId())) {
+            if (categoryChoice == productModel.getCategoryId()) {
                 System.out.println("Product" + ":" + productModelArrayList.indexOf(productModel) + "." + productModelArrayList.indexOf(productModel.getProductName()) + " | "
                         + productModelArrayList.indexOf(productModel.getProductPrice()) + " | "
                         + productModelArrayList.indexOf(productModel.getDiscription()));
@@ -173,11 +173,11 @@ public class GrocaryArrayList {
 
                 System.out.println("Your OrderProduct is:");
 
-                for(UserOrderModel userOrderModel: orderModel.getUserOrderModel()){
+                for (UserOrderModel userOrderModel : orderModel.getUserOrderModel()) {
                     System.out.println("");
                     System.out.println(userOrderModel.getProductModel().getProductName() + " | "
-                    + "Price: " + orderModel.getTotal() + " | "
-                    + "Quntity: " + userOrderModel.getProductQuantity());
+                            + "Price: " + orderModel.getTotal() + " | "
+                            + "Quntity: " + userOrderModel.getProductQuantity());
                 }
             }
 
@@ -186,7 +186,7 @@ public class GrocaryArrayList {
     }
 
     private void menu() {
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+        /*for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
 
             for (int j = 0; j < productModelArrayList.size(); j++) {
@@ -194,6 +194,17 @@ public class GrocaryArrayList {
                     System.out.println("--------Product" + productModelArrayList.get(j).getProductName() + " | "
                             + productModelArrayList.get(j).getProductPrice() + " | "
                             + productModelArrayList.get(j).getDiscription());
+                }
+            }
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) + "." + categoryModel.getCategoryName());
+
+            for (ProductModel productModel : productModelArrayList) {
+                if (productModel.getCategoryId() == categoryModelArrayList.indexOf(categoryModel)) {
+                    System.out.println("------Product" + productModel.getProductName() + " | "
+                            + productModel.getProductPrice() + " | "
+                            + productModel.getDiscription());
                 }
             }
         }
@@ -230,13 +241,16 @@ public class GrocaryArrayList {
         int index;
         System.out.println("");
 
-        for (int i = 0; i < orderModelArrayList.size(); i++) {
+        /*for (int i = 0; i < orderModelArrayList.size(); i++) {
             System.out.println(i + "." + orderModelArrayList.get(i).getUserName());
 //            System.out.println(orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductName() + " | "
 //                    + userOrderModelArrayList.get(0).getProductQuantity() + " | "
 //                    + orderModelArrayList.get(0).getProductModelArrayList().get(0).getProductPrice() + " | "
 //                    + orderModelArrayList.get(0).getTotal() + "  --"
 //                    + orderModelArrayList.get(0).getProductModelArrayList().size());
+        }*/
+        for (OrderModel orderModel : orderModelArrayList) {
+            System.out.println(orderModelArrayList.indexOf(orderModel) + "." + orderModel.getUserName());
         }
         System.out.println("");
         System.out.println("Enter your index for delete particular Order");
@@ -356,10 +370,15 @@ public class GrocaryArrayList {
         System.out.println("");
         int index;
 
-        for (int i = 0; i < productModelArrayList.size(); i++) {
+       /* for (int i = 0; i < productModelArrayList.size(); i++) {
             System.out.println(i + "." + productModelArrayList.get(i).getProductName() + " | "
                     + productModelArrayList.get(i).getProductPrice() + " | "
                     + productModelArrayList.get(i).getDiscription());
+        }*/
+        for (ProductModel productModel : productModelArrayList) {
+            System.out.println(productModelArrayList.indexOf(productModel) + "." + productModel.getProductName() + " | "
+                    + productModel.getProductPrice() + " | "
+                    + productModel.getDiscription());
         }
         System.out.println("");
         System.out.println("choose your index If you want to delete");
@@ -385,8 +404,11 @@ public class GrocaryArrayList {
         int prochoice;
         int categoryId;
         System.out.println("");
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+       /* for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) + "." + categoryModel.getCategoryName());
         }
         System.out.println("");
         System.out.println("choose the categoryId");
@@ -395,11 +417,15 @@ public class GrocaryArrayList {
 
         System.out.println("");
 
-        for (int i = 0; i < productModelArrayList.size(); i++) {
+       /* for (int i = 0; i < productModelArrayList.size(); i++) {
             System.out.println(i + "." + productModelArrayList.get(i).getProductName() + "|"
                     + productModelArrayList.get(i).getProductPrice() + "|"
                     + productModelArrayList.get(i).getDiscription());
-
+        }*/
+        for (ProductModel productModel : productModelArrayList) {
+            System.out.println(productModelArrayList.indexOf(productModel) + "." + productModel.getProductName() + " | "
+                    + productModel.getProductPrice() + " | "
+                    + productModel.getDiscription());
         }
         System.out.println("");
         System.out.println("choose product index");
@@ -437,7 +463,7 @@ public class GrocaryArrayList {
 
 
     private void seeAllProduct() {
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+        /*for (int i = 0; i < categoryModelArrayList.size(); i++) {
 
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
 
@@ -448,7 +474,17 @@ public class GrocaryArrayList {
                             + productModelArrayList.get(j).getDiscription());
                 }
             }
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) + "." + categoryModel.getCategoryName());
 
+            for (ProductModel productModel : productModelArrayList) {
+                if (productModel.getCategoryId() == categoryModelArrayList.indexOf(categoryModel)) {
+                    System.out.println("------Product" + productModel.getProductName() + " | "
+                            + productModel.getProductPrice() + " | "
+                            + productModel.getDiscription());
+                }
+            }
         }
     }
 
@@ -457,9 +493,11 @@ public class GrocaryArrayList {
 //        productModelArrayList = new ArrayList<>();
         System.out.println("");
 
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+       /* for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
-
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) + "." + categoryModel.getCategoryName());
         }
         System.out.println("Enter the categoryId or Index");
         categoryId = getInput.nextInt();
@@ -564,8 +602,11 @@ public class GrocaryArrayList {
         System.out.println("");
         int index;
 
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+       /* for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + " " + categoryModelArrayList.get(i).getCategoryName());
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) +"." + categoryModel.getCategoryName());
         }
         System.out.println("");
         System.out.println("choose your choice index which you want to delete");
@@ -582,8 +623,11 @@ public class GrocaryArrayList {
     private void updateGrocaryCategory() {
         System.out.println("");
         int index;
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+        /*for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + " " + categoryModelArrayList.get(i).getCategoryName());
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) +"." + categoryModel.getCategoryName());
         }
         System.out.println("");
         System.out.println("choose your choice index which you want to update");
@@ -605,13 +649,13 @@ public class GrocaryArrayList {
     }
 
     private void seeAllGrocaryCategory() {
-        for (int i = 0; i < categoryModelArrayList.size(); i++) {
+       /* for (int i = 0; i < categoryModelArrayList.size(); i++) {
             System.out.println(i + "." + categoryModelArrayList.get(i).getCategoryName());
+        }*/
+        for (CategoryModel categoryModel : categoryModelArrayList) {
+            System.out.println(categoryModelArrayList.indexOf(categoryModel) +"." +categoryModel.getCategoryName());
         }
-
-
     }
-
 
 //      for(int i=0;i<productModelArrayList.size();i++){
 //          System.out.println(categoryModelArrayList.get(productModelArrayList.get(i).getCategoryId()).getCategoryName());
@@ -637,7 +681,6 @@ public class GrocaryArrayList {
         categoryModelArrayList.add(new CategoryModel(categoryName));
 
         addcategory();
-
 
     }
 
