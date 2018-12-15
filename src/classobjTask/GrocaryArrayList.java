@@ -130,6 +130,7 @@ public class GrocaryArrayList {
         //  productQuntity = productQuntity + userOrderModelArrayList.get(productChoice).getProductQuantity();
 
 
+
         chooseMoreProduct(userName, orderTotal, userOrderModelArrayList);
 
     }
@@ -400,7 +401,7 @@ public class GrocaryArrayList {
 
         productModelArrayList.set(prochoice, new ProductModel(productName, productPrice, discription, categoryId));
 
-        System.out.println("Press Y for add product or N for no");
+        System.out.println("Press Y for update product or N for no");
         choice = getInput.next();
         if (choice.equals("Y")) {
 
